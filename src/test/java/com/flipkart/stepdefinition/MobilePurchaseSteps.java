@@ -1,5 +1,7 @@
 package com.flipkart.stepdefinition;
 
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.junit.Assert;
@@ -12,6 +14,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import io.cucumber.datatable.DataTable;
 import io.github.bonigarcia.wdm.WebDriverManager;
 
 
@@ -44,8 +47,8 @@ public class MobilePurchaseSteps {
 	    Thread.sleep(2000);
 	  	WebElement mobileName = d.findElement(By.xpath("(//div[@class='_4rR01T'])[2]"));
 	    Thread.sleep(2000);
-		//String name = mobileName.getText();
-		//System.out.println(name);
+		String name = mobileName.getText();
+		System.out.println(name);
 		mobileName.click();
 	  	
 	}
@@ -64,6 +67,33 @@ public class MobilePurchaseSteps {
 
 	@Then("user click on add to cart")
 	public void user_click_on_add_to_cart() {
-		//Assert.assertTrue(d.findElement(By.xpath("//button[@class='_2KpZ6l _2U9uOA ihZ75k _3AWRsL']")).isDisplayed());
+		Assert.assertTrue(d.findElement(By.xpath("//button[@class='_2KpZ6l _2U9uOA ihZ75k _3AWRsL']")).isDisplayed());
+	}
+	
+	/*@When("user search mobile by using {int} dim list")
+	public void user_search_mobile_by_using_dim_list(Integer int1, DataTable dataTable) throws Throwable {
+	   List<String> datas = dataTable.asList(String.class);
+	   WebElement search = d.findElement(By.xpath("//input[@type='text']"));
+	  	search.sendKeys(datas.get(1),Keys.ENTER);
+	    Thread.sleep(2000);
+	  	WebElement mobileName = d.findElement(By.xpath("(//div[@class='_4rR01T'])[2]"));
+	    Thread.sleep(2000);
+		String name = mobileName.getText();
+		System.out.println(name);
+		mobileName.click();
+	}  */
+	@When("user search mobile by using one dim map")
+	public void user_search_mobile_by_using_dim_map(DataTable dataTable) throws Throwable {
+		   Map<String, String> datas = dataTable.asMap(String.class, String.class);
+		   WebElement search = d.findElement(By.xpath("//input[@type='text']"));
+		  	search.sendKeys(datas.get("real"),Keys.ENTER);
+		    Thread.sleep(2000);
+		  	WebElement mobileName = d.findElement(By.xpath("(//div[@class='_4rR01T'])[2]"));
+		    Thread.sleep(2000);
+			String name = mobileName.getText();
+			System.out.println(name);
+			mobileName.click();
+	   
+	   
 	}
 }
