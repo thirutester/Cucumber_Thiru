@@ -22,6 +22,7 @@ public class MobilePurchaseSteps {
 	static WebDriver d;
 	@Given("user launches flipkart application")
 	public void user_launches_flipkart_application() {
+		    System.out.println("Background");
 			WebDriverManager.chromedriver().setup();
 	        d = new ChromeDriver();
 	        d.manage().window().maximize();
@@ -42,10 +43,11 @@ public class MobilePurchaseSteps {
 
 	@When("user search mobile")
 	public void user_search_mobile() throws Throwable {
+		System.out.println("Scenario");
 		WebElement search = d.findElement(By.xpath("//input[@type='text']"));
 	  	search.sendKeys("realme",Keys.ENTER);
 	    Thread.sleep(2000);
-	  	WebElement mobileName = d.findElement(By.xpath("(//div[@class='_4rR01T'])[2]"));
+	  	WebElement mobileName = d.findElement(By.xpath("(//div[@class='_4rR01T'])[1]"));
 	    Thread.sleep(2000);
 		String name = mobileName.getText();
 		System.out.println(name);
@@ -68,6 +70,7 @@ public class MobilePurchaseSteps {
 	@Then("user click on add to cart")
 	public void user_click_on_add_to_cart() {
 		Assert.assertTrue(d.findElement(By.xpath("//button[@class='_2KpZ6l _2U9uOA ihZ75k _3AWRsL']")).isDisplayed());
+		d.quit();
 	}
 	
 	/*@When("user search mobile by using {int} dim list")
@@ -82,7 +85,7 @@ public class MobilePurchaseSteps {
 		System.out.println(name);
 		mobileName.click();
 	}  */
-	@When("user search mobile by using one dim map")
+	/*@When("user search mobile by using one dim map")
 	public void user_search_mobile_by_using_dim_map(DataTable dataTable) throws Throwable {
 		   Map<String, String> datas = dataTable.asMap(String.class, String.class);
 		   WebElement search = d.findElement(By.xpath("//input[@type='text']"));
@@ -92,8 +95,17 @@ public class MobilePurchaseSteps {
 		    Thread.sleep(2000);
 			String name = mobileName.getText();
 			System.out.println(name);
-			mobileName.click();
-	   
-	   
-	}
+			mobileName.click();  
+	}*/
+   /*@When("user search mobile {string}")
+	public void user_search_mobile(String phone_Name) throws Throwable {
+	   WebElement search = d.findElement(By.xpath("//input[@type='text']"));
+	  	search.sendKeys(phone_Name,Keys.ENTER);
+	    Thread.sleep(2000);
+	  	WebElement mobileName = d.findElement(By.xpath("(//div[contains(text(), '"+phone_Name+"')])[2]"));
+	    Thread.sleep(2000);
+		String name = mobileName.getText();
+		System.out.println(name);
+		mobileName.click();
+	}*/
 }
